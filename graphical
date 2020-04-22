@@ -1,0 +1,42 @@
+import numpy as np
+
+print('a[0]x^n + a[1]x +....+ a[n]x^0')
+n = int(input('Enter the n value: '))
+A = []
+for i in range(0,n+1):
+    power = int(input('a[{}] = '.format(i)))
+    A.append(power)
+x0 = float(input('Enter the x value to found: '))
+result = 0
+result = np.polyval(A,x0)
+print(result)
+delta = float(input('Enter the delta value: '))
+eps = float(input('Enter the epsilon value: '))
+preresult = result
+stop = 1
+count = 0
+rounded = 0
+while stop!=0:
+    count+=1
+    result = 0
+    x0 = delta + x0
+    x=1/x0
+    result = np.polyval(A,x0)
+    if result>0:
+        if abs(result-preresult)>eps:
+            x0 = x0-delta
+            delta = delta/2
+            rounded = x0
+            print(f'x = {x0}')
+            print(f'fx={result}')
+            print(f'delta = {delta}')
+            print(f'count = {count}')
+        else:
+            stop = 0
+    else:
+        print(f'x={x0}')
+        print(f'count = {count}')
+    preresult=result 
+
+print(f'the x value is = {rounded}')
+print(f'founded in {count} trying')
